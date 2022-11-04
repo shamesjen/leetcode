@@ -1,0 +1,31 @@
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums) - 1
+        index = 0
+        def search(target: int, left: int, right: int):
+            mid = (left + right) // 2
+            nonlocal index
+            if nums[mid] == target:
+                index = mid
+                return
+            if left > right:
+                return
+            if nums[mid] > target:
+                if nums[mid - 1] < target:
+                    index = mid
+                    return
+                else:
+                    return search(target, left, mid - 1)
+            if nums[mid] < target:
+                if mid + 1 > right:
+                    index = mid + 1
+                    return
+                if mid + 1 <= right:
+                    if nums[mid + 1] > target:
+                        index = mid + 1
+                        return
+                    else:
+                        return search(target, mid + 1, right)
+        search(target, left, right)
+        return index
