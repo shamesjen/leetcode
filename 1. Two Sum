@@ -1,0 +1,6 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        for i in range(len(nums) - 1):
+            if nums[i] + nums[len(nums) - 1] == target:
+                return [i ,len(nums) - 1]
+        return Solution.twoSum(self, nums[:len(nums) - 1], target)
