@@ -1,0 +1,24 @@
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        left = 1
+        right = n
+        version = 1
+        def isgood(left: int, right: int):
+            mid = (right + left) // 2
+            nonlocal version
+            if left > right:
+                return
+            if isBadVersion(mid) == True:
+                if isBadVersion(mid - 1) == False:
+                    version = mid
+                    return
+                else:
+                    return isgood(left, mid)
+            elif isBadVersion(mid) == False:
+                if isBadVersion(mid + 1) == True:
+                    version = mid + 1
+                    return
+                else:
+                    return isgood(mid, right)
+        isgood(left, right)
+        return version
