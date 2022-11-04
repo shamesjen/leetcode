@@ -1,0 +1,46 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        output = [-1, -1]
+        def search(left, right, target):
+            nonlocal output
+            mid = (left + right) // 2
+            if left > right:
+                return
+            if nums[mid] == target:
+                if left == right or mid == 0:
+                    output[0] = mid
+                    return
+                elif nums[mid - 1] < target:
+                    output[0] = mid
+                    return
+                else:
+                    return search(left, mid - 1, target)
+
+            elif nums[mid] > target:
+                return search(left, mid - 1, target)
+            else:
+                return search(mid + 1, right, target)
+        
+        def search1(left, right, target):
+            nonlocal output
+            mid = (left + right) // 2
+            if left > right:
+                return
+            if nums[mid] == target:
+                if left == right or mid == (len(nums) - 1):
+                    output[1] = mid
+                    return
+                elif nums[mid + 1] > target:
+                    output[1] = mid
+                    return
+                else:
+                    return search1(mid + 1, right, target)
+
+            elif nums[mid] > target:
+                return search1(left, mid - 1, target)
+            else:
+                return search1(mid + 1, right, target)
+        search(0, len(nums) - 1, target)
+        search1(0, len(nums) - 1, target)
+        return output
+
