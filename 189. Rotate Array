@@ -1,0 +1,13 @@
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        k %= len(nums)
+        if k == 0:
+            return
+        temp = [None] * k
+        for i in range(k):
+            temp[i] = nums[len(nums) - k + i]
+        for i in range(len(nums) - k):
+            nums[len(nums) - 1 - i] = nums[len(nums) - k - 1 - i]
+        for i in range(k):
+            nums[i] = temp[i]
+        return
